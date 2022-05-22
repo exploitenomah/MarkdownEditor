@@ -16,7 +16,7 @@ const SideBar = () => {
       <Overlay hideSelf={handleClick} show={showSideNav} />
       <section className={sidebarClasses(showSideNav)}>
         <SideBarHeading />
-        <SideBarBody />
+        <SideBarBody  />
       </section>
     </>
 

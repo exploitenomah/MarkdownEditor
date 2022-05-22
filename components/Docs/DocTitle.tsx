@@ -4,6 +4,7 @@ import useDblClick from '../../custom.hooks/useDblClick'
 import { storeDoc } from '../../types/store.types'
 import { IconButton } from '../Buttons'
 import { docsWorkers } from '../../store/reducers/docs.reducer/docs.slice'
+import { uiWorkers } from '../../store/reducers/ui.reducer/ui.slice'
 import { docBtnClasses, docClasses, docInputClasses, sideBtnClasses } from './Docs.classees'
 
 const DocTitle = ({ doc }: { doc: storeDoc }) => {
@@ -30,7 +31,10 @@ const [isEdit, handleDblClick] = useDblClick()
           <button 
             onTouchStart={(e) => { handleDblClick() }}
             onDoubleClickCapture={() => { console.log('dblClick') }}
-            onClick={() => docsWorkers.setActiveDoc(doc.doc)}
+            onClick={() => {
+              docsWorkers.setActiveDoc(doc.doc)
+              uiWorkers.toggleShowSideNav(false)
+            }}
             className={docBtnClasses()}>
             {`${name}.${extension}`}
           </button>
