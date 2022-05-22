@@ -22,7 +22,7 @@ const Preview = ({ ui, doc }: previewProps) => {
         <SectionHeaderDesktop headingText='Preview'>
           <FaEye />
         </SectionHeaderDesktop>
-        <div className='max-h-[90%] overflow-y-auto overflow-x-hidden'>
+        <div className='max-h-[90vh] overflow-y-auto overflow-x-hidden'>
           <PreviewMd doc={doc} />
         </div>
       </>
