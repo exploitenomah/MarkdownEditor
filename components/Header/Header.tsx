@@ -1,7 +1,7 @@
 
 
 import { useCallback} from 'react'
-import { FaRegFolder, FaMoon, FaSun } from 'react-icons/fa'
+import { FaRegFolder, FaMoon, FaSun, FaPlus } from 'react-icons/fa'
 import { AiFillSetting} from 'react-icons/ai'
 import { RiMenuFill } from 'react-icons/ri'
 import { IconButton } from "../Buttons"
@@ -64,7 +64,13 @@ const Header = (
           </h1>   
       </div>
       <div className={`flex justify-around`}>
-
+        <IconButton
+            extraClasses={`${headerToggleBtnClasses} hidden md:flex bg-blue-500`}
+            onClick={() => (toggleTheme())}>
+          <>
+             <FaPlus /> new file 
+          </>
+        </IconButton>
         <IconButton
             extraClasses={`${headerToggleBtnClasses}`}
             onClick={() => (handleToggleShowSettings())}>
@@ -72,6 +78,7 @@ const Header = (
               <AiFillSetting />
           </>
         </IconButton>
+
         <IconButton
             extraClasses={`${headerToggleBtnClasses}`}
             onClick={() => (toggleTheme())}>
