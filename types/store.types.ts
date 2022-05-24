@@ -15,6 +15,7 @@ export interface uiState{
 export interface docsState {
   docs: storeDocs,
   activeDoc: doc,
+  defaultDoc: string
 }
 export interface storeDoc {
   id:string,

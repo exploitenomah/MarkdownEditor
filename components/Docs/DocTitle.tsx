@@ -8,6 +8,7 @@ import { uiWorkers } from '../../store/reducers/ui.reducer/ui.slice'
 import { docBtnClasses, docClasses, docInputClasses, sideBtnClasses } from './Docs.classees'
 
 const DocTitle = ({ doc }: { doc: storeDoc }) => {
+
 //  const [firstTouch, setFirstTouch] = useState<number>(0)
 //  const [secondTouch, setSecondTouch] = useState<number>(0)
 // const [isEdit, setIsEdit] = useState<boolean>(false)
@@ -39,7 +40,11 @@ const [isEdit, handleDblClick] = useDblClick()
             {`${name}.${extension}`}
           </button>
       }
-      <IconButton extraClasses={sideBtnClasses} onClick={() => docsWorkers.deleteDoc(doc.id)}>
+      <IconButton extraClasses={sideBtnClasses}
+        onClick={() => {
+          docsWorkers.deleteDoc(doc.doc.id);
+          uiWorkers.toggleShowSideNav(false)
+        }}>
         <FaTrashAlt />
       </IconButton>
     </li>

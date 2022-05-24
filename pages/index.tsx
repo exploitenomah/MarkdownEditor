@@ -37,6 +37,7 @@ const HomePage = (props: HomePageProps) => {
     } else {
       docsWorkers.setActiveDoc( props.defaultDoc )
     } 
+    docsWorkers.setDefaultDoc(props.defaultDoc.content)
   }, [])
   return (
     <div>
