@@ -7,7 +7,7 @@ const DocTitles = ({docs} : {docs: storeDocs}) => {
 
   return(
     <ul className={docsListClasses()}>
-      {docs.map(doc => <DocTitle key={doc.doc.name} doc={doc} />)}
+      {docs.map(doc => <DocTitle key={doc.doc.id} doc={doc} />)}
     </ul>
   )
 }

@@ -15,10 +15,6 @@ export interface uiState{
 export interface docsState {
   docs: storeDocs,
   activeDoc: doc,
-  preferences: preferences
-}
-export interface preferences{
-  autoSave: boolean
 }
 export interface storeDoc {
   id:string,

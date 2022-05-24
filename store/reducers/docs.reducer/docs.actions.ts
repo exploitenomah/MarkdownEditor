@@ -2,13 +2,13 @@
 
 
 import { createAction } from "@reduxjs/toolkit"
-import {doc, storeDocs, preferences} from '../../../types/store.types'
+import {doc, storeDocs} from '../../../types/store.types'
  const actions = {
   setActiveDoc : createAction<doc>('setActiveDoc'),
   getLSDocs : createAction<storeDocs>('getLSDocs'),
-  editActiveDocContent: createAction<string>('setActiveDocContent'),
+   editActiveDocContent: createAction<string>('setActiveDocContent'),
+  createNewDoc: createAction('createNewDoc'),
   toggleAutoSave: createAction<boolean>('toggleAutoSave'),
-  getLsPreferences: createAction<preferences>('getLsPreferences'),
   saveDocs: createAction('saveDocs')
 }
 

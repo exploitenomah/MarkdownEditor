@@ -6,6 +6,7 @@ import { uiWorkers } from '../../store/reducers/ui.reducer/ui.slice'
 import { IconButton } from "../Buttons"
 import { sideBarHeadingClasses } from './SideBar.classes'
 import { StoreType } from '../../types/store.types'
+import { docsWorkers } from '../../store/reducers/docs.reducer/docs.slice'
 
 const SideBarHeading = () => {
   return (
@@ -17,7 +18,7 @@ const SideBarHeading = () => {
        <IconButton
         extraClasses={`flex rounded-md justify-center items-center 
          bg-blue-500 p-2 ml-auto mr-7`}
-        onClick={() => console.log('this')}>
+        onClick={() => docsWorkers.createNewDoc()}>
           <>
           <FaPlus />
           <span className='hidden md:inline'>&nbsp;new file</span>

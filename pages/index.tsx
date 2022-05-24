@@ -36,11 +36,7 @@ const HomePage = (props: HomePageProps) => {
       docsWorkers.getLSDocs(docs)
     } else {
       docsWorkers.setActiveDoc( props.defaultDoc )
-    }
-    const lsPreferences = localStorage.getItem('preferences')
-    if (lsPreferences !== null) {
-      docsWorkers.getLsPreferences(JSON.parse(lsPreferences))
-    }
+    } 
   }, [])
   return (
     <div>

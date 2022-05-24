@@ -7,6 +7,7 @@ import Header from './Header/Header'
 import SideBar from './SideBar/SideBar'
 import { StoreType } from '../types/store.types'
 import Overlay from './Overlay'
+import { docsWorkers } from '../store/reducers/docs.reducer/docs.slice'
 
 type LayoutProps = {
   children: JSX.Element
@@ -50,13 +51,9 @@ const Layout = ({ children }: LayoutProps) => {
     }
   }, [])
   useEffect(() => {
-    if (docs.preferences.autoSave) {
-      localStorage.setItem('docs', JSON.stringify(docs.docs))
-    }
-  }, [docs.preferences.autoSave, docs.docs])
-  useEffect(() => {
-    localStorage.setItem('preferences', JSON.stringify(docs.preferences))
-  }, [docs.preferences])
+   docs.docs && docsWorkers.saveDocs()
+  }, [docs.docs])
+
   
   return (
     <div className={`${theme} transition overflow-hidden`}>
@@ -69,7 +66,6 @@ const Layout = ({ children }: LayoutProps) => {
           handleToggleShowSettings={handleToggleShowSettings}
           theme={theme}
           toggleTheme={toggleTheme}
-          preferences={docs.preferences}
           activeDoc={docs.activeDoc}
         />
         <SideBar />

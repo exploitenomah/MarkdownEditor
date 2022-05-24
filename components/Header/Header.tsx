@@ -18,20 +18,14 @@ const Header = (
   { toggleTheme,
     theme,
     showSettings,
-    handleToggleShowSettings,
-    preferences: {
-      autoSave
-    },
+    handleToggleShowSettings, 
     activeDoc
   }:
     {
       toggleTheme: Function,
       theme: string,
       showSettings: boolean,
-      handleToggleShowSettings: Function,
-      preferences: {
-        autoSave: boolean
-      },
+      handleToggleShowSettings: Function, 
       activeDoc: doc
     }) => {
   
@@ -66,9 +60,9 @@ const Header = (
       <div className={`flex justify-around`}>
         <IconButton
             extraClasses={`${headerToggleBtnClasses} hidden md:flex bg-blue-500`}
-            onClick={() => (toggleTheme())}>
+            onClick={() => (docsWorkers.createNewDoc())}>
           <>
-             <FaPlus /> new file 
+             <FaPlus /><span className='text-sm '>&nbsp;new file </span>
           </>
         </IconButton>
         <IconButton
@@ -87,12 +81,9 @@ const Header = (
           </>
         </IconButton>
         <DocSettings
-          autoSave={autoSave}
-          handleAutoSaveChange={handleAutoSaveChange}
-          handleSave={docsWorkers.saveDocs}
           show={showSettings} />
       </div>  
-    </header>
+    </header> 
   )
 }
 
