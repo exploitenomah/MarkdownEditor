@@ -1,4 +1,6 @@
 
+
+import { useEffect } from 'react'
 import {  FaTrashAlt } from 'react-icons/fa'
 import useDblClick from '../../custom.hooks/useDblClick'
 import { storeDoc } from '../../types/store.types'
@@ -8,33 +10,47 @@ import { uiWorkers } from '../../store/reducers/ui.reducer/ui.slice'
 import { docBtnClasses, docClasses, docInputClasses, sideBtnClasses } from './Docs.classees'
 
 const DocTitle = ({ doc }: { doc: storeDoc }) => {
-
-//  const [firstTouch, setFirstTouch] = useState<number>(0)
-//  const [secondTouch, setSecondTouch] = useState<number>(0)
-// const [isEdit, setIsEdit] = useState<boolean>(false)
-//   const diff = firstTouch - secondTouch
-//   useEffect(() => {
-//   if(diff <= 500){
-//     setIsEdit(true)
-//   }
-// })
   const { doc: { name, extension }
   } = doc
-const [isEdit, handleDblClick] = useDblClick()
-  
+  const [isDblClicked, handleDblClick] = useDblClick()
+  useEffect(() => {
+    if (isDblClicked) {
+      docsWorkers.setIsEditName(doc.id)
+    }
+  }, [isDblClicked])
+  const handleEditName = (e: React.ChangeEvent<HTMLInputElement>)=> {
+    const target = e.target
+    if (target !== null)
+      docsWorkers.handleDocNameChange({id:doc.id, name: target.value})
+  }
+  const handleEditNameSubmitWithKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      docsWorkers.removeIsEditName(doc.id)
+    }
+  }
   return (
     <li className={docClasses(doc.isActive)}>
       {
-        isEdit ?
-          <input value={`${name}.${extension}`} className={
-            docInputClasses()} /> :
-
+        doc.isEditName ?
+          <>
+           <input
+           type='text'
+           name='edit document title'
+            onChange={(e) => {
+              handleEditName(e)
+              }}
+            onFocus={(e) => { e.target.select() }}
+            onKeyDown={(e) => handleEditNameSubmitWithKeyDown(e)}
+            onBlur={() => docsWorkers.removeIsEditName(doc.id)}
+            value={`${name}`} className={
+            docInputClasses()} />
+          </>
+            :
           <button 
             onTouchStart={(e) => { handleDblClick() }}
-            onDoubleClickCapture={() => { console.log('dblClick') }}
+            onDoubleClickCapture={() => { docsWorkers.setIsEditName(doc.id) }}
             onClick={() => {
               docsWorkers.setActiveDoc(doc.doc)
-              uiWorkers.toggleShowSideNav(false)
             }}
             className={docBtnClasses()}>
             {`${name}.${extension}`}

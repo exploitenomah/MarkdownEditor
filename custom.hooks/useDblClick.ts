@@ -4,7 +4,6 @@ import { useState, useEffect, useMemo, useCallback } from 'react'
 
 
 const useDblClick = () => {
-// const useDblClick = (fn: Function) => {
   const [firstTouch, setFirstTouch] = useState<number>(0)
   const [secondTouch, setSecondTouch] = useState<number>(0)
   const [dblClick, setDblClick] = useState<boolean>(false)

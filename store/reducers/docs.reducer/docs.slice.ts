@@ -9,9 +9,17 @@ import { v4 } from 'uuid'
 
 
 const {
-  setActiveDoc, getLSDocs, setDefaultDoc,
-  editActiveDocContent, createNewDoc,
-  saveDocs, deleteDoc } = actions
+  setDefaultDoc,
+  setActiveDoc,
+  getLSDocs,
+  editActiveDocContent,
+  createNewDoc,
+  setIsEditName,
+  removeIsEditName,
+  handleDocNameChange,
+  saveDocs,
+  deleteDoc,
+} = actions
 
 const initialState: docsState = {
   docs: [],
@@ -32,15 +40,15 @@ const docsReducer = createSlice({
 
     builder
       .addCase(setDefaultDoc, (state, action) => {
-      return {
-        ...state, 
-        defaultDoc: action.payload
-      }
+        return {
+          ...state,
+          defaultDoc: action.payload
+        }
       })
       .addCase(setActiveDoc, (state, action) => {
         const updDocs = state.docs.map(doc => doc.doc.id === action.payload.id ?
           { ...doc, isActive: true, isEditName: false, } : { ...doc, isActive: false, isEditName: false }
-        ).sort((a,b) => (a.isActive === b.isActive) ? 0 : a.isActive ? -1 : 1)
+        ).sort((a, b) => (a.isActive === b.isActive) ? 0 : a.isActive ? -1 : 1)
         const activeDoc = updDocs.filter(doc => doc.isActive)[0]?.doc
           || action.payload
         return {
@@ -57,21 +65,21 @@ const docsReducer = createSlice({
       .addCase(editActiveDocContent, (state, action) => {
         if (state.activeDoc.id === 'default') {
           const stateDocs = state.docs.map((doc) => ({ ...doc, isActive: false, isEditName: false }))
-          const newDoc ={
-              doc: {
-                ...state.activeDoc,
-                id: v4(),
-                content: action.payload,
-                name: 'untitled'
-              },
-              isActive: true,
-              isEditName: false,
-              id: v4()
-            }
+          const newDoc = {
+            doc: {
+              ...state.activeDoc,
+              id: v4(),
+              content: action.payload,
+              name: 'untitled'
+            },
+            isActive: true,
+            isEditName: false,
+            id: v4()
+          }
           const updDocs = [
-            {...newDoc},
+            { ...newDoc },
             ...stateDocs,
-            ]
+          ]
           const updStateDocs = [...updDocs]
             .map((doc, idx) => doc.doc.name === 'untitled' ?
               {
@@ -89,12 +97,12 @@ const docsReducer = createSlice({
           const updStateDocs = [...state.docs]
             .map(doc => (doc.isActive ?
               {
-              ...doc,
-              doc: { ...doc.doc, content: action.payload }
-            } : doc) )
-         const activeDoc = updStateDocs.filter(doc => doc.isActive)[0].doc
+                ...doc,
+                doc: { ...doc.doc, content: action.payload }
+              } : doc))
+          const activeDoc = updStateDocs.filter(doc => doc.isActive)[0].doc
           return ({
-            ...state, 
+            ...state,
             activeDoc: activeDoc,
             docs: updStateDocs
           })
@@ -102,7 +110,7 @@ const docsReducer = createSlice({
       })
       .addCase(createNewDoc, (state, _) => {
         const newDoc: storeDoc = {
-          id:v4(),
+          id: v4(),
           isActive: true,
           isEditName: false,
           doc: {
@@ -115,16 +123,47 @@ const docsReducer = createSlice({
         const updStateDocs = [...state.docs
           .map((doc) => ({ ...doc, isActive: false })), newDoc]
           .map((doc, idx) => doc.doc.name === 'untitled' ?
-            { ...doc, doc: { ...doc.doc, name: `untitled${idx + 1}` } } : doc) 
-        const activeDoc= updStateDocs.filter(doc => doc.isActive)[0].doc
-          return ({
-            ...state,
-            activeDoc:activeDoc,
-            docs: updStateDocs
-          })
+            { ...doc, doc: { ...doc.doc, name: `untitled${idx + 1}` } } : doc)
+        const activeDoc = updStateDocs.filter(doc => doc.isActive)[0].doc
+        return ({
+          ...state,
+          activeDoc: activeDoc,
+          docs: updStateDocs
+        })
       })
+      .addCase(setIsEditName, (state, action) => {
+        const updStateDocs = [...state.docs]
+          .map(doc => doc.id === action.payload ? { ...doc, isEditName: true } : {...doc, isEditName: false})
+        return ({
+          ...state,
+          docs: updStateDocs
+        })
+       })
+      .addCase(removeIsEditName, (state, action) => {
+        const updDocs = [...state.docs].map((doc, idx) => doc.id === action.payload ?
+          { ...doc, isEditName: false, doc: { ...doc.doc, name: doc.doc.name.length === 0 ? `untitled${idx + 1}` : doc.doc.name } }
+          : doc)
+        return {
+          ...state,
+          docs: updDocs
+         }
+       })
+      .addCase(handleDocNameChange, (state, action) => {
+        const docNewName = action.payload.name.trim()
+        let updStateDocs
+        if (docNewName.length < 12) {
+          updStateDocs = [...state.docs].map(doc => doc.id === action.payload.id ? { ...doc, doc: { ...doc.doc, name: docNewName } } : doc)
+        }else {
+          updStateDocs = state.docs
+        }
+        return {
+          ...state,
+          docs: updStateDocs
+        }
+       })
       .addCase(saveDocs, (state, _) => {
-        localStorage.setItem('docs', JSON.stringify(state.docs))
+        const updDocs = [...state.docs].map(doc => ({...doc, isEditName: false}))
+        localStorage.setItem('docs', JSON.stringify(updDocs))
         return state
       })
       .addCase(deleteDoc, (state, action) => {
@@ -140,7 +179,6 @@ const docsReducer = createSlice({
             content: state.defaultDoc,
             id: 'default', name: 'document'
           }
-        console.log(updDocs, action.payload, activeDoc)
         return {
           ...state,
           activeDoc: activeDoc,
@@ -155,6 +193,9 @@ export const docsWorkers = {
   getLSDocs: (docs: storeDocs) => store.dispatch(getLSDocs(docs)),
   editActiveDocContent: (content: string) => store.dispatch(editActiveDocContent(content)),
   createNewDoc: () => store.dispatch(createNewDoc()),
+  setIsEditName: (docId: string) => store.dispatch(setIsEditName(docId)),
+  removeIsEditName: (docId: string) => store.dispatch(removeIsEditName(docId)),
+  handleDocNameChange: (doc: {id: string, name: string}) => store.dispatch(handleDocNameChange(doc)),
   saveDocs: () => store.dispatch(saveDocs()),
   deleteDoc: (docId: string) => store.dispatch(deleteDoc(docId)),
 }

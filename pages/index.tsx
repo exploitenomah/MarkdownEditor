@@ -31,7 +31,6 @@ const HomePage = (props: HomePageProps) => {
       const docs: storeDocs = JSON.parse(lsDocs)
       const activeDoc = docs.length > 0 ?
         docs.filter(doc => doc.isActive)[0].doc : props.defaultDoc
-      console.log(docs)
       docsWorkers.setActiveDoc( activeDoc )
       docsWorkers.getLSDocs(docs)
     } else {
