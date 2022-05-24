@@ -11,7 +11,7 @@ import { v4 } from 'uuid'
 const {
   setActiveDoc, getLSDocs,
   editActiveDocContent, createNewDoc,
-  toggleAutoSave, saveDocs } = actions
+  toggleAutoSave, saveDocs, deleteDoc } = actions
 
 const initialState: docsState = {
   docs: [],
@@ -92,7 +92,7 @@ const docsReducer = createSlice({
           })
         }
       })
-      .addCase(createNewDoc, (state, action) => {
+      .addCase(createNewDoc, (state, _) => {
         const newDoc: storeDoc = {
           id:v4(),
           isActive: true,
@@ -119,6 +119,16 @@ const docsReducer = createSlice({
         localStorage.setItem('docs', JSON.stringify(state.docs))
         return state
       })
+      .addCase(deleteDoc, (state, action) => {
+        const updDocs = state.docs
+          .filter(doc => doc.id !== action.payload)
+          .map((doc,idx) => ({...doc, isActive: idx === 0}))
+        console.log(updDocs, action.payload)
+        return {
+          ...state,
+          docs: updDocs
+        }
+      })
   }
 })
 export const docsWorkers = {
@@ -127,7 +137,8 @@ export const docsWorkers = {
   editActiveDocContent: (content: string) => store.dispatch(editActiveDocContent(content)),
   createNewDoc: () => store.dispatch(createNewDoc()),
   toggleAutoSave: (autoSave: boolean) => store.dispatch(toggleAutoSave(autoSave)), 
-  saveDocs: () => store.dispatch(saveDocs())
+  saveDocs: () => store.dispatch(saveDocs()),
+  deleteDoc: (docId: string) => store.dispatch(deleteDoc(docId))
 }
 
 export default docsReducer.reducer

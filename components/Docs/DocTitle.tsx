@@ -39,7 +39,7 @@ const [isEdit, handleDblClick] = useDblClick()
             {`${name}.${extension}`}
           </button>
       }
-      <IconButton extraClasses={sideBtnClasses} onClick={() => ('helo')}>
+      <IconButton extraClasses={sideBtnClasses} onClick={() => docsWorkers.deleteDoc(doc.id)}>
         <FaTrashAlt />
       </IconButton>
     </li>
