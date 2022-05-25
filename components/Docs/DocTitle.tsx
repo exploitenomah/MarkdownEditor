@@ -9,7 +9,9 @@ import { docsWorkers } from '../../store/reducers/docs.reducer/docs.slice'
 import { uiWorkers } from '../../store/reducers/ui.reducer/ui.slice'
 import { docBtnClasses, docClasses, docInputClasses, sideBtnClasses } from './Docs.classees'
 
-const DocTitle = ({ doc }: { doc: storeDoc }) => {
+const DocTitle = (
+  { doc }:
+  { doc: storeDoc }) => {
   const { doc: { name, extension }
   } = doc
   const [isDblClicked, handleDblClick] = useDblClick()

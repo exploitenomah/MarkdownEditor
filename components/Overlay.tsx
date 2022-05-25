@@ -1,6 +1,11 @@
 
 
-const Overlay = ({show, hideSelf}:{show?: boolean, hideSelf?: React.MouseEventHandler}) => {
+const Overlay = ({
+  show,
+  hideSelf }: {
+    show?: boolean,
+    hideSelf?: React.MouseEventHandler
+  }) => {
 
   return (
     <div

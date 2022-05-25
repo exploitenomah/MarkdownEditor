@@ -49,7 +49,10 @@ const HomePage = (props: HomePageProps) => {
       <section className={homeStyles()}>
         <Markdown doc={docs.activeDoc} ui={ui} />
         <hr className={homeDividerStyles()} />
-        <Preview pdfRef={pdfRef} doc={docs.activeDoc} ui={ui} />
+        <Preview
+          pdfRef={pdfRef}
+          doc={docs.activeDoc}
+          ui={ui} />
       </section>  
     </div>
   )

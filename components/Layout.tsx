@@ -14,9 +14,15 @@ type LayoutProps = {
   downloadPdf: Function
 }
 
-const Layout = ({ children, downloadPdf }: LayoutProps) => {
+const Layout = ({
+  children,
+  downloadPdf }: LayoutProps) => {
+  
   const [theme, setTheme] = useState('light')
-  const { docs, ui: { showLaunch, showSideNav, showSettings } } = useSelector<StoreType, any>((store) => store)
+  const { docs, ui: {
+    showLaunch,
+    showSideNav,
+    showSettings } } = useSelector<StoreType, any>((store) => store)
 
   const toggleTheme = useCallback(() => {
     setTheme((prev) => {

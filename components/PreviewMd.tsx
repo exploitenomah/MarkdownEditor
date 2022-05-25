@@ -6,8 +6,7 @@ import remarkGfm from 'remark-gfm'
 const PreviewMd = ({
   doc,
   pdfRef
-}
-  : {
+} : {
   pdfRef ?: React.RefObject<HTMLDivElement> | undefined
     doc?: any
   }) => {

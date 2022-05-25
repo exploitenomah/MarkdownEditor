@@ -14,6 +14,14 @@ import Logo from './Logo'
 import { doc, StoreType } from '../../types/store.types'
 import { useSelector } from 'react-redux'
 
+type HeaderProps = {
+      toggleTheme: Function,
+      theme: string,
+      showSettings: boolean,
+      handleToggleShowSettings: Function,
+      activeDoc: doc,
+      downloadPdf: Function
+}
 
 const Header = (
   { toggleTheme,
@@ -22,15 +30,7 @@ const Header = (
     handleToggleShowSettings,
     activeDoc,
     downloadPdf
-  }:
-    {
-      toggleTheme: Function,
-      theme: string,
-      showSettings: boolean,
-      handleToggleShowSettings: Function,
-      activeDoc: doc,
-      downloadPdf: Function
-    }) => {
+  }: HeaderProps) => {
   const { docs } = useSelector((store: StoreType) => store)
   return (
     <header
