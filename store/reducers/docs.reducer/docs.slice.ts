@@ -150,15 +150,28 @@ const docsReducer = createSlice({
        })
       .addCase(handleDocNameChange, (state, action) => {
         const docNewName = action.payload.name.trim()
+        let activeDoc
         let updStateDocs
-        if (docNewName.length < 12) {
+        if (state.activeDoc.name === state.docs.filter(doc => doc.id === action.payload.id)[0].doc.name) {
+      
+          if (docNewName.length < 12) {
+          activeDoc = {
+            ...state.activeDoc,
+            name: docNewName
+          }
           updStateDocs = [...state.docs].map(doc => doc.id === action.payload.id ? { ...doc, doc: { ...doc.doc, name: docNewName } } : doc)
         }else {
           updStateDocs = state.docs
+          activeDoc= state.activeDoc
+          }
+        }else{
+          updStateDocs = state.docs
+          activeDoc = state.activeDoc
         }
         return {
           ...state,
-          docs: updStateDocs
+          docs: updStateDocs,
+          activeDoc: activeDoc
         }
        })
       .addCase(saveDocs, (state, _) => {
