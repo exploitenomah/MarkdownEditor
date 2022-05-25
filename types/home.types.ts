@@ -10,5 +10,5 @@ export interface markdownProps extends homeSectionProps {
   
 }
 export interface previewProps extends homeSectionProps {
-
+  pdfRef: React.RefObject<HTMLDivElement> | undefined 
 }

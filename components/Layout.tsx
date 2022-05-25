@@ -10,10 +10,11 @@ import Overlay from './Overlay'
 import { docsWorkers } from '../store/reducers/docs.reducer/docs.slice'
 
 type LayoutProps = {
-  children: JSX.Element
+  children: JSX.Element,
+  downloadPdf: Function
 }
 
-const Layout = ({ children }: LayoutProps) => {
+const Layout = ({ children, downloadPdf }: LayoutProps) => {
   const [theme, setTheme] = useState('light')
   const { docs, ui: { showLaunch, showSideNav, showSettings } } = useSelector<StoreType, any>((store) => store)
 
@@ -67,6 +68,7 @@ const Layout = ({ children }: LayoutProps) => {
           theme={theme}
           toggleTheme={toggleTheme}
           activeDoc={docs.activeDoc}
+          downloadPdf={downloadPdf}
         />
         <SideBar />
         <div

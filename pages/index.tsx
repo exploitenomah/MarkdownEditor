@@ -2,7 +2,7 @@
 
 
 import Head from 'next/head'
-import { useEffect } from 'react'
+import React, {useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { homeStyles, homeDividerStyles } from '../components/Home/Home.classes'
 import { StoreType, doc, storeDocs } from '../types/store.types'
@@ -20,11 +20,13 @@ export async function getStaticProps() {
   }
 }
 type HomePageProps = {
-  defaultDoc: doc
+  defaultDoc: doc,
+  pdfRef: React.RefObject<HTMLDivElement> | undefined
 }
 
 const HomePage = (props: HomePageProps) => {
   const { docs, ui } = useSelector((store: StoreType) => store)
+  const { pdfRef } = props
   useEffect(() => {
     const lsDocs = localStorage.getItem('docs')
     if (lsDocs !== null) {
@@ -47,7 +49,7 @@ const HomePage = (props: HomePageProps) => {
       <section className={homeStyles()}>
         <Markdown doc={docs.activeDoc} ui={ui} />
         <hr className={homeDividerStyles()} />
-        <Preview doc={docs.activeDoc} ui={ui} />
+        <Preview pdfRef={pdfRef} doc={docs.activeDoc} ui={ui} />
       </section>  
     </div>
   )

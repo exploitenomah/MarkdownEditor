@@ -6,9 +6,10 @@ import { docsWorkers } from "../../store/reducers/docs.reducer/docs.slice"
 import { uiWorkers } from "../../store/reducers/ui.reducer/ui.slice"
 import { doc } from "../../types/store.types"
 
-const DocSettings = ({ show, activeDoc }: {
+const DocSettings = ({ show, activeDoc, downloadPdf }: {
   show: boolean,
-  activeDoc: doc
+  activeDoc: doc,
+  downloadPdf: Function
 }) => {
   return (
     <div className={docSettingsClasses(show)}>
@@ -16,6 +17,7 @@ const DocSettings = ({ show, activeDoc }: {
         extraClasses={`${docBtnClasses} bg-blue-600`}
         onClick={() => { 
           uiWorkers.toggleShowSettings(false)
+          downloadPdf(activeDoc.name)
          }}>
         <>
           <FaDownload />

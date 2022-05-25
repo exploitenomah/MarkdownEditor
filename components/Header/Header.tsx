@@ -20,14 +20,16 @@ const Header = (
     theme,
     showSettings,
     handleToggleShowSettings,
-    activeDoc
+    activeDoc,
+    downloadPdf
   }:
     {
       toggleTheme: Function,
       theme: string,
       showSettings: boolean,
       handleToggleShowSettings: Function,
-      activeDoc: doc
+      activeDoc: doc,
+      downloadPdf: Function
     }) => {
   const { docs } = useSelector((store: StoreType) => store)
   return (
@@ -82,6 +84,7 @@ const Header = (
               </>
             </IconButton>
             <DocSettings
+            downloadPdf={downloadPdf}
               show={showSettings} activeDoc={activeDoc} />
           </>
         }
