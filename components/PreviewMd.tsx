@@ -11,9 +11,8 @@ const PreviewMd = ({
   pdfRef ?: React.RefObject<HTMLDivElement> | undefined
     doc?: any
   }) => {
-// console.log(pdfRef.current)
   return (
-    <div ref={pdfRef} id='pdf' className='py-6'> 
+    <div ref={pdfRef} className='py-6 max-h-[75vh] '> 
          <ReactMarkdown  className='prose-inherit px-6 w-full prose prose-slate prose-sm dark:prose-invert prose-img:rounded-xl  ' children={doc.content} remarkPlugins={[remarkGfm]} />
     </div> 
   )

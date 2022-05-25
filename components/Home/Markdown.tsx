@@ -29,7 +29,7 @@ const Markdown = ({ ui, doc }: markdownProps) => {
           </IconButton>
         </HomeHeaderMobile>
         <SectionHeaderDesktop  headingText='MarkDown' />
-        <div className='max-h-[90vh] overflow-y-auto overflow-x-hidden'>
+        <div className='max-h-[85vh] overflow-y-auto overflow-x-hidden'>
         <Editor setValue={handleEditorChange} value={doc.content} />
         </div>
       </>

@@ -3,7 +3,7 @@
 import { flex_itemsCenter } from "../../styles/utils.styles"
 
 export const homeStyles = (extraClasses?: string): string => {
-  return ` ${extraClasses} md:flex  h-[85vh] overflow-y-hidden`
+  return ` ${extraClasses} md:flex `
 }
 export const homeHeaderMobileStyles = (extraClasses?: string): string => {
 
@@ -16,7 +16,7 @@ export const homeHeaderDesktopStyles = (extraClasses?: string): string => {
 
 export const homeSectionClasses = (extraClasses?: string) => {
 
-  return `max-h-full md:basis-1/2 text-slate-900 dark:text-slate-400  ${extraClasses}`
+  return ` md:basis-1/2 text-slate-900 dark:text-slate-400  ${extraClasses}`
 }
 
 export const previewClasses = (show: boolean): string => {

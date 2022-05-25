@@ -57,7 +57,7 @@ const Layout = ({ children, downloadPdf }: LayoutProps) => {
 
   
   return (
-    <div className={`${theme} transition overflow-hidden`}>
+    <div className={`${theme} transition overflow-hidden h-[100vh]`}>
       <LaunchScreen />
       <div className={`
        h-[100vh] bg-slate-200 dark:bg-slate-900
