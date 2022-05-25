@@ -1,7 +1,14 @@
 {
+  "name": "dot-markdown",
+  "version": "1.0.0",
   "private": true,
+  "license": "none",
+  "author": {
+    "name": "Exploit Enomah",
+    "email": "enomahexploit@gmail.com"
+  },
   "scripts": {
-    "dev": " SET PORT=2001 && next dev",
+    "dev": " SET PORT=1970 && next dev",
     "build": "next build",
     "start": "next start"
   },
