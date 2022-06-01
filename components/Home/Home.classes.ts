@@ -28,3 +28,6 @@ export const editorClasses = (hide: boolean): string => {
 export const homeDividerStyles = () => {
   return `hidden md:block w-[4px] opacity-40  h-full absolute inset-x-[50%] inset-y-0 z-0 border-0 bg-slate-800 dark:bg-slate-700 dark:opacity-100`
 }
+export const containerClasses = () => {
+  return `max-h-[85vh] overflow-y-auto md:max-w-[50vw] overflow-x-hidden`
+}
