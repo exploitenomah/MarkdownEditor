@@ -2,7 +2,7 @@ import { FaEye } from "react-icons/fa"
 import { uiWorkers } from "../../store/reducers/ui.reducer/ui.slice"
 import { IconButton } from "../Buttons"
 import Editor from "../Editor"
-import { editorClasses } from "./Home.classes"
+import { editorClasses, containerClasses } from "./Home.classes"
 import { HomeHeaderMobile, SectionHeaderDesktop } from "./HomeHeader"
 import HomeSection from "./HomeSection"
 import { markdownProps } from '../../types/home.types'
@@ -29,7 +29,7 @@ const Markdown = ({ ui, doc }: markdownProps) => {
           </IconButton>
         </HomeHeaderMobile>
         <SectionHeaderDesktop  headingText='MarkDown' />
-        <div className='max-h-[85vh] overflow-y-auto overflow-x-hidden'>
+        <div className={containerClasses()}>
         <Editor setValue={handleEditorChange} value={doc.content} />
         </div>
       </>

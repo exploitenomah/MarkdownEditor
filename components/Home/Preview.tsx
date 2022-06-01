@@ -5,7 +5,7 @@ import React
 import { FaEye, FaEdit } from "react-icons/fa"
 import { uiWorkers } from "../../store/reducers/ui.reducer/ui.slice"
 import { IconButton } from "../Buttons"
-import { previewClasses } from "./Home.classes"
+import { previewClasses, containerClasses } from "./Home.classes"
 import { HomeHeaderMobile, SectionHeaderDesktop } from "./HomeHeader"
 import HomeSection from "./HomeSection"
 import PreviewMd from '../PreviewMd'
@@ -28,8 +28,8 @@ const Preview = ({ ui, doc, pdfRef }: previewProps) => {
         </HomeHeaderMobile>
         <SectionHeaderDesktop headingText='Preview'>
           <FaEye  />
-        </SectionHeaderDesktop>
-        <div className='max-h-[85vh] overflow-y-auto overflow-x-hidden'>
+        </SectionHeaderDesktop> 
+        <div className={containerClasses()}>
           <PreviewMd pdfRef={pdfRef} doc={doc} />
         </div>
       </>
